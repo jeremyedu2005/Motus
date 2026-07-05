@@ -17,9 +17,11 @@ require_once("inc/poo.inc.php");
    INTERCEPTION DE LA VUE GD (Avant tout traitement)
 ========================================== */
 if (isset($_GET['motus']) && $_GET['motus'] === 'gd_demo') {
-    $etape = isset($_GET['etape']) ? (int)$_GET['etape'] : 1;
-    if ($etape < 1) $etape = 1;
-    if ($etape > 6) $etape = 6;
+    $etape = isset($_GET['etape']) ? (int) $_GET['etape'] : 1;
+    if ($etape < 1)
+        $etape = 1;
+    if ($etape > 6)
+        $etape = 6;
 
     // Instanciation et affichage de la Vue GD dédiée
     $vueGD = new VueGD($etape);
@@ -72,7 +74,7 @@ if (isset($_GET['motus']) && $_GET['motus'] === 'jeu') {
     $_SESSION['clavier_statut'][$motSecret[0]] = 'bien-place';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
+
         if (isset($_POST['valider']) && !$_SESSION['partie_terminee']) {
             $motSaisi = isset($_POST['mot_saisi']) ? trim($_POST['mot_saisi']) : '';
             $premiereLettre = $motSecret[0];
@@ -163,8 +165,8 @@ if (isset($_GET['motus']) && $_GET['motus'] === 'jeu') {
         }
     }
 
-    $donneesJeu['tempsRestantCooldown'] = max(0, 10 - (time() - ($_SESSION['indice_time'] ?? time())));
-    $donneesJeu['tempsRestantRevelation'] = max(0, 15 - (time() - ($_SESSION['revelation_time'] ?? time())));
+    $donneesJeu['tempsRestantCooldown'] = max(0, 60 - (time() - ($_SESSION['indice_time'] ?? time())));
+    $donneesJeu['tempsRestantRevelation'] = max(0, 120 - (time() - ($_SESSION['revelation_time'] ?? time())));
 }
 
 
@@ -183,7 +185,7 @@ if (isset($_GET['motus']) && !empty($_GET['motus'])) {
             $vue = new VueAccueil();
             echo $vue;
             break;
-        
+
         case "reglement":
             $vue = new VueRegles();
             echo $vue;
@@ -198,7 +200,7 @@ if (isset($_GET['motus']) && !empty($_GET['motus'])) {
             $vue = new VueDemonstration();
             echo $vue;
             break;
-        
+
         case "mentions":
             $vue = new VueMentionlegales();
             echo $vue;

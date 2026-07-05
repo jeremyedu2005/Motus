@@ -113,7 +113,7 @@ class VueJeu
         </div>
 
         <!-- INCLUSION DU FICHIER JAVASCRIPT GÉRANT LE TIMER EN TEMPS RÉEL -->
-        <script src="/js/jeu.js" defer></script>
+        <script src="js/jeu.js" defer></script>
         <?php
         return ob_get_clean();
     }
