@@ -12,7 +12,6 @@ class VueJeu
     private $tempsRestantCooldown;
     private $tempsRestantRevelation;
 
-    // Le constructeur reçoit proprement le tableau $donneesJeu préparé par le contrôleur
     public function __construct($donnees = [])
     {
         $this->longueur               = $donnees['longueur'] ?? 6;
@@ -86,7 +85,7 @@ class VueJeu
                 </form>
 
                 <?php 
-                // Inclusion du sous-composant Clavier Visuel
+                // APPEL DU SOUS-COMPOSANT : On instancie la sous-vue du clavier
                 $clavierVisuel = new VueClavier($_SESSION['clavier_statut'] ?? []);
                 echo $clavierVisuel; 
                 ?>
@@ -113,7 +112,8 @@ class VueJeu
             <?php endif; ?>
         </div>
 
-        <script src="js/jeu.js" defer></script>
+        <!-- INCLUSION DU FICHIER JAVASCRIPT GÉRANT LE TIMER EN TEMPS RÉEL -->
+        <script src="/js/jeu.js" defer></script>
         <?php
         return ob_get_clean();
     }

@@ -22,7 +22,6 @@ body {
     max-width: 900px;
     margin: 40px auto;
     padding: 40px 20px;
-    /* Moins de padding sur les côtés pour anticiper le mobile */
     box-sizing: border-box;
     background: #0a0a0a;
     border-radius: 12px;
@@ -39,7 +38,6 @@ body {
 .accueil h1 {
     color: #ffff00;
     font-size: clamp(2em, 5vw, 3em);
-    /* Taille fluide selon l'écran */
     text-shadow: 0 0 15px #ffff00;
     margin-bottom: 20px;
 }
@@ -108,7 +106,7 @@ body {
     font-weight: bold;
 }
 
-/* Zone des actions & Boutons unifiés en Flexbox Wrap (Évite tout chevauchement) */
+/* Zone des actions & Boutons unifiés en Flexbox Wrap */
 .demo-actions,
 .modal-actions,
 .saisie-form {
@@ -623,11 +621,9 @@ body {
 
 
 /* ==========================================================================
-   4. INTERMEDIATE POINT DE BASCULE (Sous 960px) - Évite le débordement des longs mots
+   4. INTERMEDIATE POINT DE BASCULE (Sous 960px)
    ========================================================================== */
 @media (max-width: 960px) {
-
-    /* Sécurité Menu */
     .navbar-menu {
         gap: 20px;
     }
@@ -636,13 +632,11 @@ body {
         font-size: 1.1em;
     }
 
-    /* Rendre la grille liquide AVANT les 768px pour absorber les mots de 7 à 9 lettres */
     .grille {
         grid-template-columns: repeat(var(--mot-length, 6), 1fr);
         grid-template-rows: repeat(6, auto);
         width: 100%;
-        max-width: 500px;
-        /* Limite l'étirement excessif sur tablette */
+        max-width: 450px;
         gap: 6px;
     }
 
@@ -699,17 +693,36 @@ body {
         transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Nettoyage des paddings globaux pour maximiser l'espace utile */
     .accueil,
     .regles,
     .demonstration,
     .mentions-legales,
     .jeu {
         margin: 15px auto;
-        padding: 20px 15px;
+        padding: 20px 10px;
+        width: 98%;
     }
 
-    /* Actions et formulaires fluides */
+    /* PROTECTION STRICTE : Empêche la grille de dépasser sur n'importe quel mobile */
+    .grille {
+        grid-template-columns: repeat(var(--mot-length, 6), calc(85vw / var(--mot-length, 6))) !important;
+        grid-template-rows: repeat(6, calc(85vw / var(--mot-length, 6))) !important;
+        width: fit-content !important;
+        max-width: 100% !important;
+        gap: 4px !important;
+        margin: 15px auto !important;
+    }
+
+    .case {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: unset !important;
+        max-height: unset !important;
+        min-width: unset !important;
+        min-height: unset !important;
+        font-size: clamp(1em, 5vw, 1.5em) !important;
+    }
+
     .demo-actions,
     .saisie-form {
         flex-direction: column;
@@ -741,12 +754,12 @@ body {
     .saisie-container input[type="text"] {
         width: 0;
         flex-grow: 1;
-        font-size: 1.6em;
-        letter-spacing: 6px;
+        font-size: 1.4em;
+        letter-spacing: 4px;
     }
 
     .premiere-lettre {
-        font-size: 1.6em;
+        font-size: 1.4em;
         min-width: 25px;
     }
 
@@ -764,15 +777,17 @@ body {
 
 
 /* ==========================================================================
-   6. AJUSTEMENTS POUR LES PETITS SMARTPHONES (Sous 480px)
+   6. AJUSTEMENTS ULTRA-MOBILES (Sous 480px)
    ========================================================================== */
 @media (max-width: 480px) {
     .grille {
-        gap: 4px;
+        grid-template-columns: repeat(var(--mot-length, 6), calc(88vw / var(--mot-length, 6))) !important;
+        grid-template-rows: repeat(6, calc(88vw / var(--mot-length, 6))) !important;
+        gap: 3px !important;
     }
 
     .case {
-        font-size: 1.1em;
+        font-size: 1.1em !important;
     }
 
     .saisie-container {
@@ -781,17 +796,12 @@ body {
     }
 
     .saisie-container input[type="text"] {
-        font-size: 1.3em;
-        letter-spacing: 4px;
+        font-size: 1.2em;
+        letter-spacing: 3px;
     }
 
     .premiere-lettre {
-        font-size: 1.3em;
-        min-width: 20px;
-    }
-
-    .touche-valider {
-        padding: 5px 10px;
-        font-size: 0.9em;
+        font-size: 1.2em;
+        min-width: 18px;
     }
 }

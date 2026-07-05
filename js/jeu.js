@@ -1,47 +1,56 @@
-// js/jeu.js - Gestion des comptes à rebours en temps réel sur la page de jeu
-document.addEventListener('DOMContentLoaded', function() {
-    const btnIndice = document.querySelector('button[name="indice"]');
-    const btnRevelation = document.querySelector('button[name="demander_revelation"]');
+// js/jeu.js - Gestion des comptes à rebours en temps réel pour le jeu Motus
 
-    // Sécurité : on n'exécute le script que si on est sur l'écran de jeu avec les boutons
-    if (!btnIndice && !btnRevelation) return;
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Récupération des boutons du DOM
+    const btnIndice = document.querySelector('.btn-indice');
+    const btnRevelation = document.querySelector('.btn-revelation');
 
-    // Fonction pour extraire le nombre de secondes cachées dans le texte du bouton
-    function obtenirTempsInitial(bouton, texteClef) {
-        if (!bouton || bouton.disabled === false) return 0;
-        const match = bouton.textContent.match(/\d+/);
-        return match ? parseInt(match[0], 10) : 0;
+    // --- GESTION DU TIMER DE L'INDICE ---
+    if (btnIndice) {
+        // On extrait le nombre de secondes initial (ex: "Indice (10 s)" -> 10)
+        let texteInitial = btnIndice.textContent;
+        let match = texteInitial.match(/\d+/);
+
+        if (match) {
+            let tempsRestant = parseInt(match[0], 10);
+
+            if (tempsRestant > 0) {
+                const timerIndice = setInterval(function () {
+                    tempsRestant--;
+
+                    if (tempsRestant <= 0) {
+                        clearInterval(timerIndice);
+                        btnIndice.textContent = "Indice disponible !";
+                        btnIndice.removeAttribute('disabled');
+                    } else {
+                        btnIndice.textContent = "Indice (" + tempsRestant + " s)";
+                    }
+                }, 1000); // S'exécute pile toutes les 1000ms (1 seconde)
+            }
+        }
     }
 
-    // Récupération des temps initiaux laissés par le PHP
-    let tempsIndice = obtenirTempsInitial(btnIndice);
-    let tempsRevelation = obtenirTempsInitial(btnRevelation);
+    // --- GESTION DU TIMER DE LA RÉVÉLATION ---
+    if (btnRevelation) {
+        let texteInitial = btnRevelation.textContent;
+        let match = texteInitial.match(/\d+/);
 
-    // Compteur pour le bouton Indice
-    if (tempsIndice > 0 && btnIndice) {
-        const chronoIndice = setInterval(function() {
-            tempsIndice--;
-            if (tempsIndice > 0) {
-                btnIndice.textContent = "Indice (" + tempsIndice + " s)";
-            } else {
-                btnIndice.textContent = "Indice disponible !";
-                btnIndice.disabled = false;
-                clearInterval(chronoIndice);
-            }
-        }, 1000);
-    }
+        if (match) {
+            let tempsRestant = parseInt(match[0], 10);
 
-    // Compteur pour le bouton Révélation
-    if (tempsRevelation > 0 && btnRevelation) {
-        const chronoRevelation = setInterval(function() {
-            tempsRevelation--;
-            if (tempsRevelation > 0) {
-                btnRevelation.textContent = "Révélation (" + tempsRevelation + " s)";
-            } else {
-                btnRevelation.textContent = "⚠️ Révéler le mot";
-                btnRevelation.disabled = false;
-                clearInterval(chronoRevelation);
+            if (tempsRestant > 0) {
+                const timerRevelation = setInterval(function () {
+                    tempsRestant--;
+
+                    if (tempsRestant <= 0) {
+                        clearInterval(timerRevelation);
+                        btnRevelation.textContent = "⚠️ Révéler le mot";
+                        btnRevelation.removeAttribute('disabled');
+                    } else {
+                        btnRevelation.textContent = "Révélation (" + tempsRestant + " s)";
+                    }
+                }, 1000);
             }
-        }, 1000);
+        }
     }
 });
