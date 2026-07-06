@@ -1,5 +1,5 @@
 ## Motus Star Wars
-[Demo](https://jeremyedu2005.github.io/todolist/)
+[Demo](https://raodson-jeremy.com/Projets/Motus/index.php)
 
 
 **Motus Star Wars** est une application web de jeu de lettres inspirée du célèbre concept du Motus, transposée dans l'univers de la pop-culture Star Wars. Ce projet a été initialement initié dans un cadre universitaire avant d'être approfondi et finalisé de manière autonome, tout en conservant sa vocation de projet académique.
