@@ -39,7 +39,7 @@ L'organisation des fichiers reflète une stricte séparation des responsabilité
 ```text
 Motus/
 ├── BD/
-│   └── bibliotheque.json       # Base de données galactique au format JSON (Dictionnaire)
+│   └── bibliotheque.json       # Base de données au format JSON (Dictionnaire)
 ├── class/
 │   ├── VueAccueil.class.php    # Vue de la page d'accueil
 │   ├── VueClavier.class.php    # Sous-composant visuel du clavier du jeu
